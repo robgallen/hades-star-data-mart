@@ -1,0 +1,75 @@
+{
+	"name": "Weapons",
+	"data": [
+		{
+			"name": "Battery",
+			"type": "weapon",
+			"description": "Does damage to a single target at a time.",
+			"researchArtifact": "Orb (level 1+)",
+			"levels": [1,2,3,4,5,6,7,8,9,10],
+			"blueprints": [1, 50, 200, 600, 1500, 4000, 10000, 20000, 30000, 40000],
+			"researchPrice": [2500, 5000, 12500, 25000, 50000, 100000, 250000, 500000, 750000, 1000000],
+			"researchTime": ["1h", "4h", "12h", "1d", "2d", "3d", "4d", "5d", "6d", "7d"],
+			"minDamagePerSecond": [100, 120, 140, 160, 180, 210, 250, 285, 315, 340],
+			"attackRange": 120,
+			"additionalHydrogenUse": [0.4, 0.8, 1.6, 2.8, 4.0, 6.0, 9.0, 12.0, 16.0, 20.0],
+			"installPrice": [1000, 1500, 2500, 4000, 7500, 10000, 15000, 20000, 25000, 30000]
+		}, {
+			"name": "Laser",
+			"type": "weapon",
+			"description": "A powerful weapon that does increasingly higher damage the longer it stays focused on a single target.",
+			"researchArtifact": "Orb (level 2+)",
+			"levels": [1,2,3,4,5,6,7,8,9,10],
+			"blueprints": [1, 50, 200, 600, 1500, 4000, 10000, 20000, 30000, 40000],
+			"researchPrice": [8000, 12000, 25000, 50000, 100000, 250000, 500000, 1000000, 2000000, 4000000],
+			"researchTime": ["4h", "8h", "16h", "1d", "2d", "3d", "4d", "5d", "6d", "7d"],
+			"minDamagePerSecond": [80, 90, 100, 110, 125, 140, 155, 170, 185, 200],
+			"maxDamagePerSecond": [200, 220, 240, 270, 300, 340, 380, 420, 460, 500],
+			"chargeTime": 45,
+			"attackRange": 120,
+			"additionalHydrogenUse": [1.0, 2.0, 3.0, 4.0, 7.0, 10.0, 13.0, 16.0, 20.0, 23.0],
+			"installPrice": [1000, 1500, 2500, 4000, 7500, 10000, 15000, 20000, 25000, 30000]
+		}, {
+			"name": "Mass Battery",
+			"type": "weapon",
+			"description": "Simultaneously fires on multiple enemies within firing range.",
+			"researchArtifact": "Orb (level 3+)",
+			"levels": [1,2,3,4,5,6,7,8,9,10],
+			"blueprints": [1, 25, 100, 200, 600, 1200, 2500, 5000, 10000, 20000],
+			"researchPrice": [15000, 25000, 50000, 100000, 200000, 350000, 550000, 800000, 2000000, 5000000],
+			"researchTime": ["8h", "16h", "1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d"],
+			"minDamagePerSecond": [60, 70, 80, 90, 90, 100, 110, 110, 120, 130],
+			"maxTargets": [3, 3, 3, 3, 4, 4, 4, 5, 5, 5],
+			"attackRange": 120,
+			"additionalHydrogenUse": [2.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0, 23.0, 26.0, 29.0],
+			"installPrice": [1000, 1500, 5000, 7500, 10000, 15000, 20000, 25000, 30000, 35000]
+		}, {
+			"name": "Dual Laser",
+			"type": "weapon",
+			"description": "Fires a laser beam against up to two enemies withing range. Damage ramps up over time if both beams are active. Damage resets to minimum as soon as there is only 1 target in range.",
+			"researchArtifact": "Orb (level 4+)",
+			"levels": [1,2,3,4,5,6,7,8,9,10],
+			"blueprints": [1, 10, 40, 100, 250, 500, 1000, 2000, 4000, 8000],
+			"researchPrice": [],
+			"researchTime": [],
+			"minDamagePerSecond": [],
+			"attackRange": 120,
+			"additionalHydrogenUse": [],
+			"installPrice": []
+		}, {
+			"name": "Barrage",
+			"type": "weapon",
+			"description": "A battery that does additional damage to it's single target when there are more enemy ships in the sector.",
+			"researchArtifact": "Orb (level 5+)",
+			"levels": [1,2,3,4,5,6,7,8,9,10],
+			"blueprints": [1, 30, 60, 120, 300, 600, 1250, 2500, 5000, 10000],
+			"researchPrice": [120000, 300000, 400000, 500000, 600000, 800000, 1000000, 3500000, 6000000, 8000000],
+			"researchTime": ["1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d", "7d", "7d"],
+			"minDamagePerSecond": [80, 90, 100, 112, 120, 135, 150, 170, 185, 200],
+			"extraDamagePerEnemy": [60, 66, 73, 81, 89, 98, 108, 120, 130, 145],
+			"attackRange": 120,
+			"additionalHydrogenUse": [4.0, 8.0, 12.0, 16.0, 20.0, 24.0, 28.0, 32.0, 36.0, 40.0],
+			"installPrice": [5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000]
+		}
+	]
+}
