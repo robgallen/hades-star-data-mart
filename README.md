@@ -1,4 +1,4 @@
-# vue-first
+# Hades Star Data Mart
 
 > A Vue.js project
 
