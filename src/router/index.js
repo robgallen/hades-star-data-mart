@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
+import About from "@/components/About";
 import ShipModule from "@/components/ShipModule";
 
 Vue.use(Router);
@@ -9,11 +9,11 @@ export default new Router({
 	routes: [
 		{
 			path: "/",
-			name: "HelloWorld",
-			component: HelloWorld
+			name: "About",
+			component: About
 		}, {
 			path: "/module",
-			name: "ShipModule",
+			name: "Modules",
 			component: ShipModule
 		}
 	]
