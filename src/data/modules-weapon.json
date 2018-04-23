@@ -50,12 +50,15 @@
 			"researchArtifact": "Orb (level 4+)",
 			"levels": [1,2,3,4,5,6,7,8,9,10],
 			"blueprints": [1, 10, 40, 100, 250, 500, 1000, 2000, 4000, 8000],
-			"researchPrice": [],
-			"researchTime": [],
-			"minDamagePerSecond": [],
+			"researchPrice": [25000, 50000, 75000, 100000, 200000, 350000, 700000, 1000000, 2500000, 5000000],
+			"researchTime": ["12h", "1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d", "7d"],
+			"minDamagePerSecond": [80, 90, 100, 110, 120, 130, 140, 160, 180, 200],
+			"maxDamagePerSecond": [250, 300, 350, 400, 450, 500, 550, 600, 650, 700],
+			"timeToMaximumDamage": 45,
+			"maxTargets": 2,
 			"attackRange": 120,
-			"additionalHydrogenUse": [],
-			"installPrice": []
+			"additionalHydrogenUse": [2.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0, 23.0, 26.0, 29.0],
+			"installPrice": [5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000]
 		}, {
 			"name": "Barrage",
 			"type": "weapon",

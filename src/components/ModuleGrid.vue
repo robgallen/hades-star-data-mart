@@ -33,7 +33,9 @@ export default {
 	props: ["mod"],
 	data () {
 		return {
-			item: this.mod
+			item: this.mod,
+			ignoreKeys: ["name", "type", "description", "researchArtifact", "levels"],
+			timeKeys: ["cooldown", "effectDuration", "disableTime", "lifeExtension", "timeToMaximumDamage"]
 		};
 	},
 	methods: {
@@ -46,12 +48,11 @@ export default {
 	},
 	filters: {
 		"formatNumber": function(value, key) {
+			// keys in tabularData have been wordified
 			if (typeof(value) === "number") {
-				if (value >= 1) {
-					return numeral(value).format("0,0");
-				} else {
-					return numeral(value).format("0.0%");
-				}
+				if (key === "Additional Hydrogen Use") return numeral(value).format("0.0");
+				if (value >= 1) return numeral(value).format("0,0");
+				else return numeral(value).format("0.0%");
 			}
 			return value;
 		}
@@ -62,11 +63,10 @@ export default {
 		},
 
 		tabularData () {
-			var moduleData = this.mod;
 			var tableData = {};
 
-			Object.keys(moduleData).forEach(function(key) {
-				if (key === "name" || key === "type" || key === "description" || key === "researchArtifact" || key === "levels") {
+			Object.keys(this.mod).forEach(function(key) {
+				if (this.ignoreKeys.includes(key)) {
 					// skip
 				} else {
 					// wordify key
@@ -74,10 +74,10 @@ export default {
 						return str.toUpperCase();
 					});
 
-					var value = moduleData[key];
+					var value = this.mod[key];
 
 					// these are in seconds
-					if (key === "cooldown" || key === "effectDuration" || key === "disableTime" || key === "lifeExtension") {
+					if (this.timeKeys.includes(key)) {
 						if (typeof(value) === "object") {
 							for (var i = 0, len = value.length; i < len; i++) {
 								var val = parseInt(value[i], 10);
@@ -98,7 +98,7 @@ export default {
 
 					tableData[keyWord] = value;
 				}
-			});
+			}, this);
 
 			return tableData;
 		}
