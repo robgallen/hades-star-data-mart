@@ -34,8 +34,8 @@ export default {
 	data () {
 		return {
 			item: this.mod,
-			ignoreKeys: ["name", "type", "description", "researchArtifact", "levels"],
-			timeKeys: ["cooldown", "effectDuration", "disableTime", "lifeExtension", "timeToMaximumDamage"]
+			ignoreKeys: ["description", "levels", "name", "researchArtifact", "type"],
+			timeKeys: ["chargeTime", "cooldown", "disableTime", "effectDuration", "lifeExtension", "timeToMaximumDamage"]
 		};
 	},
 	methods: {
@@ -44,6 +44,13 @@ export default {
 				return true;
 			};
 			return false;
+		},
+		timeFormat: function(value) {
+			if (value >= 60) {
+				return numeral(value / 60).format(0.0) + "m";
+			} else {
+				return value + "s";
+			}
 		}
 	},
 	filters: {
@@ -61,7 +68,6 @@ export default {
 		len () {
 			return this.mod.levels.length;
 		},
-
 		tabularData () {
 			var tableData = {};
 
@@ -81,14 +87,10 @@ export default {
 						if (typeof(value) === "object") {
 							for (var i = 0, len = value.length; i < len; i++) {
 								var val = parseInt(value[i], 10);
-								if (val > 60) {
-									value[i] = numeral(val / 60).format(0.0) + "m";
-								} else {
-									value[i] = val + "s";
-								}
+								value[i] = this.timeFormat(val);
 							}
 						} else {
-							value = parseInt(value, 10) / 60 + "m";
+							value = this.timeFormat(value);
 						}
 					}
 
