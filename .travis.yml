@@ -13,3 +13,4 @@ deploy:
   local-dir: dist
   on:
     branch: master
+  repo: robgallen/robgallen.github.io
