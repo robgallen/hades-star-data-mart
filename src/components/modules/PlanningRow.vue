@@ -1,13 +1,13 @@
 <template>
 	<div class="form-row">
-		<div class="col">
-			{{ item.name }}
+		<div class="col-md-5">
+			<input v-bind:value="item.name" type="text" readonly class="form-control-plaintext" />
 		</div>
-		<div class="col">
-			<b-form-select v-model="level" v-bind:options="levels" />
+		<div class="col-md-3">
+			<b-form-select v-model="level" v-bind:options="levels" size="sm" />
 		</div>
-		<div class="col text-right">
-			{{ nextResearchCost }}
+		<div class="col-md-3">
+			<input v-bind:value="nextResearchCost" type="text" readonly class="form-control-plaintext text-right" />
 		</div>
 	</div>
 </template>
