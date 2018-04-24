@@ -14,3 +14,4 @@ deploy:
   on:
     branch: master
   repo: robgallen/robgallen.github.io
+  target-branch: master
