@@ -21,7 +21,7 @@ import data from "@/data/data.js";
 import ModuleGrid from "@/components/modules/ModuleGrid";
 
 export default {
-	name: "ShipModule",
+	name: "Module",
 	components: {
 		ModuleGrid
 	},
