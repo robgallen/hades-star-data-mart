@@ -13,7 +13,7 @@
 			</thead>
 			<tbody>
 				<tr v-for="(value, key) in tabularData" v-bind:key="key">
-					<td>{{ key }}</td>
+					<td>{{ key | wordify }}</td>
 					<td v-for="(val, index) in value" v-bind:key="index" class="text-right">
 						{{ val | formatNumber(key) }}
 					</td>
@@ -47,14 +47,19 @@ export default {
 		}
 	},
 	filters: {
-		"formatNumber": function(value, key) {
-			// keys in tabularData have been wordified
+		formatNumber: function(value, key) {
 			if (typeof(value) === "number") {
-				if (key === "Additional Hydrogen Use") return numeral(value).format("0.0");
+				if (key === "additionalHydrogenUse") return numeral(value).format("0.0");
 				if (value >= 1) return numeral(value).format("0,0");
 				else return numeral(value).format("0.0%");
 			}
 			return value;
+		},
+		wordify: function(str) {
+			var words = str.replace(/([A-Z])/g, " $1").replace(/^./, function(letter) {
+				return letter.toUpperCase();
+			});
+			return words;
 		}
 	},
 	computed: {
@@ -69,11 +74,6 @@ export default {
 				if (this.ignoreKeys.includes(key)) {
 					// skip
 				} else {
-					// wordify key
-					var keyWord = key.replace(/([A-Z])/g, " $1").replace(/^./, function(str) {
-						return str.toUpperCase();
-					});
-
 					var value = this.mod[key];
 
 					// these are in seconds
@@ -96,7 +96,7 @@ export default {
 
 					if (typeof(value) !== "object") value = [value];
 
-					tableData[keyWord] = value;
+					tableData[key] = value;
 				}
 			}, this);
 

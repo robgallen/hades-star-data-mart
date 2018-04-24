@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import About from "@/components/About";
-import ShipModule from "@/components/ShipModule";
+import Module from "@/components/modules/Module";
 
 Vue.use(Router);
 
@@ -13,8 +13,8 @@ export default new Router({
 			component: About
 		}, {
 			path: "/module",
-			name: "Modules",
-			component: ShipModule
+			name: "Module",
+			component: Module
 		}
 	]
 });
