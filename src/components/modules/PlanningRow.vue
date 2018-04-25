@@ -1,13 +1,24 @@
 <template>
   <div class="form-row">
     <div class="col-md-5">
-      <input v-bind:value="item.name" type="text" readonly class="form-control-plaintext" />
+      <input
+        :value="item.name"
+        type="text"
+        readonly
+        class="form-control-plaintext" >
     </div>
     <div class="col-md-3">
-      <b-form-select v-model="level" v-bind:options="levels" size="sm" />
+      <b-form-select
+        v-model="level"
+        :options="levels"
+        size="sm" />
     </div>
     <div class="col-md-3">
-      <input v-bind:value="nextResearchCost" type="text" readonly class="form-control-plaintext text-right" />
+      <input
+        :value="nextResearchCost"
+        type="text"
+        readonly
+        class="form-control-plaintext text-right" >
     </div>
   </div>
 </template>
@@ -19,7 +30,12 @@ const storageKey = 'modulePlanning';
 
 export default {
   name: 'PlanningRow',
-  props: ['mod'],
+  props: {
+    mod: {
+      type: Object,
+      required: true
+    }
+  },
   mounted () {
     if (window.localStorage && window.localStorage.getItem(storageKey)) {
       var modulePlanning = JSON.parse(window.localStorage.getItem(storageKey));

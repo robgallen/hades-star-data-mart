@@ -7,13 +7,22 @@
       </div>
       <div class="col-md-4">
         <h2>{{ mods.Weapons.name }}</h2>
-        <planning-row v-for="mod in mods.Weapons.data" v-bind:key="mod.name" v-bind:mod="mod"></planning-row>
+        <planning-row
+          v-for="mod in mods.Weapons.data"
+          :key="mod.name"
+          :mod="mod"/>
         <h2>{{ mods.Shields.name }}</h2>
-        <planning-row v-for="mod in mods.Shields.data" v-bind:key="mod.name" v-bind:mod="mod"></planning-row>
+        <planning-row
+          v-for="mod in mods.Shields.data"
+          :key="mod.name"
+          :mod="mod"/>
       </div>
       <div class="col-md-4">
         <h2>{{ mods.Support.name }}</h2>
-        <planning-row v-for="mod in mods.Support.data" v-bind:key="mod.name" v-bind:mod="mod"></planning-row>
+        <planning-row
+          v-for="mod in mods.Support.data"
+          :key="mod.name"
+          :mod="mod"/>
       </div>
     </div>
   </div>

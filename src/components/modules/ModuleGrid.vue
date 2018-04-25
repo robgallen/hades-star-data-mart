@@ -1,23 +1,33 @@
 <template>
   <div class="shipModuleGrid">
     <h3>{{ item.name }}</h3>
-    <p>{{ item.description }}<br/>
+    <p>{{ item.description }}<br>
       This module is researched from {{ item.researchArtifact }} artefacts.</p>
 
     <table class="table table-sm">
       <thead>
         <tr>
-          <th></th>
-          <th v-for="level in item.levels" v-bind:key="level" class="text-right">{{ level }}</th>
+          <th/>
+          <th
+            v-for="level in item.levels"
+            :key="level"
+            class="text-right">{{ level }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(value, key) in tabularData" v-bind:key="key">
+        <tr
+          v-for="(value, key) in tabularData"
+          :key="key">
           <td>{{ key | wordify }}</td>
-          <td v-for="(val, index) in value" v-bind:key="index" class="text-right">
+          <td
+            v-for="(val, index) in value"
+            :key="index"
+            class="text-right">
             {{ val | formatNumber(key) }}
           </td>
-          <td v-if="singleColumn(value)" v-bind:colspan="len - 1"></td>
+          <td
+            v-if="singleColumn(value)"
+            :colspan="len - 1"/>
         </tr>
       </tbody>
     </table>
@@ -29,7 +39,12 @@ import numeral from 'numeral';
 
 export default {
   name: 'ModuleGrid',
-  props: ['mod'],
+  props: {
+    mod: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       item: this.mod,
