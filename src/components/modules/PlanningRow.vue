@@ -15,9 +15,18 @@
 <script>
 import numeral from "numeral";
 
+const storageKey = "modulePlanning";
+
 export default {
 	name: "PlanningRow",
 	props: ["mod"],
+	mounted () {
+		if (window.localStorage && window.localStorage.getItem(storageKey)) {
+			var modulePlanning = JSON.parse(window.localStorage.getItem(storageKey));
+			var lvl = modulePlanning[this.item.name];
+			if (lvl > 0) this.level = lvl;
+		}
+	},
 	data () {
 		return {
 			item: this.mod,
@@ -32,6 +41,17 @@ export default {
 			var price = this.item.researchPrice[this.level];
 			if (price) return numeral(price).format("0,0");
 			else return "";
+		}
+	},
+	watch: {
+		level: {
+			handler() {
+				if (window.localStorage) {
+					var modulePlanning = JSON.parse(window.localStorage.getItem(storageKey)) || {};
+					modulePlanning[this.item.name] = this.level;
+					window.localStorage.setItem(storageKey, JSON.stringify(modulePlanning));
+				}
+			}
 		}
 	}
 };

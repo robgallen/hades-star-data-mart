@@ -1,5 +1,6 @@
 <template>
 	<div class="container">
+		<p>Use this to help plan your next upgrade. Enter the level your module is currently at, and it will tell you how much the <strong>next</strong> upgrade will cost.</p>
 		<div class="row">
 			<div class="col-md-4">
 				Trade / Mining todo
