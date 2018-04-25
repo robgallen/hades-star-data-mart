@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import data from "@/data/data.js";
-import PlanningRow from "@/components/modules/PlanningRow";
+import data from '@/data/data.js';
+import PlanningRow from '@/components/modules/PlanningRow';
 
 export default {
-  name: "Planning",
+  name: 'Planning',
   components: {
     PlanningRow
   },

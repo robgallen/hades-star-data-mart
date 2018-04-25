@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: "About",
+  name: 'About',
   data () {
     return {
       msg: "Welcome to the Hades' Star Data Mart"

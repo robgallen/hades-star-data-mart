@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import numeral from "numeral";
+import numeral from 'numeral';
 
-const storageKey = "modulePlanning";
+const storageKey = 'modulePlanning';
 
 export default {
-  name: "PlanningRow",
-  props: ["mod"],
+  name: 'PlanningRow',
+  props: ['mod'],
   mounted () {
     if (window.localStorage && window.localStorage.getItem(storageKey)) {
       var modulePlanning = JSON.parse(window.localStorage.getItem(storageKey));
@@ -39,8 +39,8 @@ export default {
     },
     nextResearchCost () {
       var price = this.item.researchPrice[this.level];
-      if (price) return numeral(price).format("0,0");
-      else return "";
+      if (price) return numeral(price).format('0,0');
+      else return '';
     }
   },
   watch: {

@@ -25,44 +25,44 @@
 </template>
 
 <script>
-import numeral from "numeral";
+import numeral from 'numeral';
 
 export default {
-  name: "ModuleGrid",
-  props: ["mod"],
+  name: 'ModuleGrid',
+  props: ['mod'],
   data () {
     return {
       item: this.mod,
-      ignoreKeys: ["description", "levels", "name", "researchArtifact", "type"],
-      timeKeys: ["chargeTime", "cooldown", "disableTime", "effectDuration", "lifeExtension", "timeToMaximumDamage"]
+      ignoreKeys: ['description', 'levels', 'name', 'researchArtifact', 'type'],
+      timeKeys: ['chargeTime', 'cooldown', 'disableTime', 'effectDuration', 'lifeExtension', 'timeToMaximumDamage']
     };
   },
   methods: {
     singleColumn: function (value) {
-      if (typeof (value) === "object" && value.length === 1) {
+      if (typeof (value) === 'object' && value.length === 1) {
         return true;
       };
       return false;
     },
     timeFormat: function (value) {
       if (value >= 60) {
-        return numeral(value / 60).format(0.0) + "m";
+        return numeral(value / 60).format(0.0) + 'm';
       } else {
-        return value + "s";
+        return value + 's';
       }
     }
   },
   filters: {
     formatNumber: function (value, key) {
-      if (typeof (value) === "number") {
-        if (key === "additionalHydrogenUse") return numeral(value).format("0.0");
-        if (value >= 1) return numeral(value).format("0,0");
-        else return numeral(value).format("0.0%");
+      if (typeof (value) === 'number') {
+        if (key === 'additionalHydrogenUse') return numeral(value).format('0.0');
+        if (value >= 1) return numeral(value).format('0,0');
+        else return numeral(value).format('0.0%');
       }
       return value;
     },
     wordify: function (str) {
-      var words = str.replace(/([A-Z])/g, " $1").replace(/^./, function (letter) {
+      var words = str.replace(/([A-Z])/g, ' $1').replace(/^./, function (letter) {
         return letter.toUpperCase();
       });
       return words;
@@ -83,7 +83,7 @@ export default {
 
           // these are in seconds
           if (this.timeKeys.includes(key)) {
-            if (typeof (value) === "object") {
+            if (typeof (value) === 'object') {
               for (var i = 0, len = value.length; i < len; i++) {
                 var val = parseInt(value[i], 10);
                 value[i] = this.timeFormat(val);
@@ -95,7 +95,7 @@ export default {
 
           // ensure value is always an array
 
-          if (typeof (value) !== "object") value = [value];
+          if (typeof (value) !== 'object') value = [value];
 
           tableData[key] = value;
         }

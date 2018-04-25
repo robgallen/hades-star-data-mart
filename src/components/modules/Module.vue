@@ -17,18 +17,18 @@
 </template>
 
 <script>
-import data from "@/data/data.js";
-import ModuleGrid from "@/components/modules/ModuleGrid";
+import data from '@/data/data.js';
+import ModuleGrid from '@/components/modules/ModuleGrid';
 
 export default {
-  name: "Module",
+  name: 'Module',
   components: {
     ModuleGrid
   },
   data () {
     return {
       mods: data.mods,
-      selected: "",
+      selected: '',
       selectedMod: null
     };
   },

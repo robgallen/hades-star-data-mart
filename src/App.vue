@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
   created () {
     this.$router.options.routes.forEach(route => {
       this.routes.push({
