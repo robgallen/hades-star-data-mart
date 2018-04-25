@@ -1,24 +1,13 @@
 <template>
   <div class="form-row">
     <div class="col-md-5">
-      <input
-        :value="item.name"
-        type="text"
-        readonly
-        class="form-control-plaintext" >
+      <input v-bind:value="item.name" type="text" readonly class="form-control-plaintext" >
     </div>
     <div class="col-md-3">
-      <b-form-select
-        v-model="level"
-        :options="levels"
-        size="sm" />
+      <b-form-select v-model="level" v-bind:options="levels" size="sm" />
     </div>
     <div class="col-md-3">
-      <input
-        :value="nextResearchCost"
-        type="text"
-        readonly
-        class="form-control-plaintext text-right" >
+      <input v-bind:value="nextResearchCost" type="text" readonly class="form-control-plaintext text-right" >
     </div>
   </div>
 </template>

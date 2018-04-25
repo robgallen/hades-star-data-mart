@@ -26,6 +26,9 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // overrides
+    'vue/v-bind-style': ['warn', 'longform'],
+    'vue/v-on-style': ['warn', 'longform'],
+    'vue/max-attributes-per-line': 'off',
     'semi': ['error', 'always']
   }
 }

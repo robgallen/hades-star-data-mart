@@ -5,24 +5,15 @@
         <b-form-group
           label="Please select a module type"
           label-for="selectMod">
-          <b-form-select
-            id="selectMod"
-            v-model="selected"
-            @change="selectMod">
-            <option
-              v-for="mod in mods"
-              :key="mod.name"
-              :value="mod.name">{{ mod.name }}</option>
+          <b-form-select id="selectMod" v-model="selected" v-on:change="selectMod">
+            <option v-for="mod in mods" v-bind:key="mod.name" v-bind:value="mod.name">{{ mod.name }}</option>
           </b-form-select>
         </b-form-group>
       </div>
     </div>
     <div v-if="selectedMod">
       <!-- <h2>{{ selectedMod.name }}</h2> -->
-      <module-grid
-        v-for="mod in selectedMod.data"
-        :key="mod.name"
-        :mod="mod"/>
+      <module-grid v-for="mod in selectedMod.data" v-bind:key="mod.name" v-bind:mod="mod"/>
     </div>
   </div>
 </template>

@@ -3,18 +3,12 @@
     <header>
       <div class="container">
         <div class="row">
-          <b-navbar
-            toggleable="md"
-            type="dark">
+          <b-navbar toggleable="md" type="dark">
             <b-navbar-toggle target="nav_collapse"/>
             <b-navbar-brand href="/">Data Mart</b-navbar-brand>
-            <b-collapse
-              is-nav
-              id="nav_collapse">
-              <b-navbar-nav
-                v-for="route in routes"
-                :key="route.name">
-                <b-nav-item :to="route.path">{{ route.name }}</b-nav-item>
+            <b-collapse is-nav id="nav_collapse">
+              <b-navbar-nav v-for="route in routes" v-bind:key="route.name">
+                <b-nav-item v-bind:to="route.path">{{ route.name }}</b-nav-item>
               </b-navbar-nav>
             </b-collapse>
           </b-navbar>
