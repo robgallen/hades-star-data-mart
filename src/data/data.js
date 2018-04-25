@@ -3,10 +3,10 @@ import Support from "./modules-support.json";
 import Weapons from "./modules-weapon.json";
 
 export default {
-	// use custom object as json data is static : use $options.mods
-	mods: {
-		Shields: Shields,
-		Support: Support,
-		Weapons: Weapons
-	}
+  // use custom object as json data is static : use $options.mods
+  mods: {
+    Shields: Shields,
+    Support: Support,
+    Weapons: Weapons
+  }
 };
