@@ -44,12 +44,14 @@ export default {
   },
   methods: {
     singleColumn: function (value) {
+      if (this.item.levels.length === 1) return false;
       if (typeof (value) === 'object' && value.length === 1) {
         return true;
       };
       return false;
     },
     timeFormat: function (value) {
+      if (isNaN(value)) return value;
       if (value >= 60) {
         return numeral(value / 60).format(0.0) + 'm';
       } else {
