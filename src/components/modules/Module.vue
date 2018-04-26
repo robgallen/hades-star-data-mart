@@ -2,9 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <b-form-group
-          label="Please select a module type"
-          label-for="selectMod">
+        <b-form-group label="Please select a module type" label-for="selectMod">
           <b-form-select id="selectMod" v-model="selected" v-on:change="selectMod">
             <option v-for="mod in mods" v-bind:key="mod.name" v-bind:value="mod.name">{{ mod.name }}</option>
           </b-form-select>

@@ -1,4 +1,107 @@
 {
   "name": "Mining",
-  "data": []
+  "data": [
+    {
+      "name": "Hydrogen Bay Extension",
+      "type": "mining",
+      "description": "Increases the maximum amount of Hydrogen that a Miner ship can carry.",
+      "researchArtifact": "Blue Crystal (level 1+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 50, 200, 600, 1500, 4000, 10000, 20000, 30000, 40000],
+      "researchPrice": [2500, 5000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 4000000],
+      "researchTime": ["2h", "4h", "12h", "1d", "2d", "3d", "4d", "5d", "6d", "7d"],
+      "extraStorage": [50, 75, 110, 170, 250, 370, 550, 850, 1275, 2000],
+      "installPrice": [500, 750, 1100, 1650, 2500, 4000, 6000, 8000, 10000, 15000]
+    }, {
+      "name": "Mining Boost",
+      "type": "mining",
+      "description": "Provides a temporary boost to Hydrogen collection speed.",
+      "researchArtifact": "Blue Crystal (level 21+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 10, 100, 400, 1200, 4000, 8000, 15000, 25000, 40000],
+      "researchPrice": [8000, 12000, 25000, 50000, 100000, 250000, 500000, 1000000, 2000000, 4000000],
+      "researchTime": ["4h", "8h", "16h", "1d", "2d", "3d", "4d", "5d", "6d", "7d"],
+      "miningSpeed": ["x2", "x2.5", "x3", "x3.5", "x4", "x4.5", "x5", "x6", "x7", "x8"],
+      "effectDuration": 600,
+      "cooldown": 1200,
+      "activationCost": [5, 6, 7, 8, 9, 10, 12, 14, 16, 19],
+      "installPrice": [1000, 1500, 2500, 4000, 6000, 8000, 10000, 12000, 15000, 20000]
+    }, {
+      "name": "Enrich",
+      "type": "mining",
+      "description": "Instantly increases the amount of Hydrogen stored on all asteroids in the sector. Asteroids have a cap of 1500 hydrogen and a sector can only be enriched once, every 24hrs.",
+      "researchArtifact": "Blue Crystal (level 2+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 10, 100, 400, 1200, 4000, 8000, 15000, 25000, 40000],
+      "researchPrice": [8000, 12000, 25000, 50000, 100000, 250000, 500000, 1000000, 2000000, 4000000],
+      "researchTime": ["4h", "8h", "16h", "1d", "2d", "3d", "4d", "5d", "6d", "7d"],
+      "hydrogenIncrease": [0.05, 0.8, 0.12, 0.14, 0.16, 0.18, 0.19, 0.20, 0.21, 0.22],
+      "cooldown": "12h",
+      "installPrice": [3000, 4000, 5000, 6500, 8500, 11000, 15000, 19000, 25000, 30000]
+    }, {
+      "name": "Remote Mining",
+      "type": "mining",
+      "description": "Simultaneously mines Hydrogen from all asteroid fields in the same sector, at reduced speed.",
+      "researchArtifact": "Blue Crystal (level 3+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 25, 50, 200, 600, 2000, 8000, 15000, 22500, 30000],
+      "researchPrice": [15000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 4000000, 8000000],
+      "researchTime": ["8h", "16h", "1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d"],
+      "miningSpeed": [0.36, 0.40, 0.45, 0.51, 0.57, 0.64, 0.72, 0.81, 0.90, "100.0%"],
+      "installPrice": [2500, 3750, 5500, 8000, 12000, 15000, 20000, 25000, 30000, 35000]
+    }, {
+      "name": "Hydrogen Upload",
+      "type": "mining",
+      "description": "Instantly uploads a percentage of collected Hydrogen to your Empire's reserves, without needing to return to a planet.",
+      "researchArtifact": "Blue Crystal (level 4+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 10, 25, 50, 200, 600, 1500, 4000, 10000, 20000],
+      "researchPrice": [20000, 35000, 65000, 100000, 200000, 350000, 700000, 1000000, 2500000, 5000000],
+      "researchTime": ["12h", "1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d", "7d"],
+      "uploaded": [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75],
+      "cooldown": 240,
+      "activationCost": "unknown",
+      "installPrice": [10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000, 40000, 45000]
+    }, {
+      "name": "Mining Unity",
+      "type": "mining",
+      "description": "Increases mining collection speed for every other player that is mining in the same sector.",
+      "researchArtifact": "Blue Crystal (level 4+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 10, 25, 50, 200, 600, 1500, 4000, 10000, 20000],
+      "researchPrice": [15000, 25000, 50000, 100000, 200000, 350000, 550000, 800000, 2000000, 5000000],
+      "researchTime": ["12h", "1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d", "7d"],
+      "speedIincreasePerPlayer": [0.25, 0.29, 0.34, 0.39, 0.45, 0.52, 0.61, 0.71, 0.83, "100%"],
+      "effectDuration": 300,
+      "cooldown": 600,
+      "activationCost": [100, 120, 144, 172, 206, 247, 296, 355, 426, 511],
+      "installPrice": [5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000]
+    }, {
+      "name": "Crunch",
+      "type": "mining",
+      "description": "Instantly collects Hydrogen from all asteroid fields in the current sector (limited by the Max Amount and the Miner ship's total capacity).",
+      "researchArtifact": "Blue Crystal (level 5+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 10, 25, 50, 100, 250, 600, 1200, 2500, 5000],
+      "researchPrice": [150000, 230000, 360000, 550000, 850000, 1300000, 2000000, 3000000, 5000000, 8000000],
+      "researchTime": ["1d", "2d", "3d", "4d", "5d", "6d", "7d", "7d", "7d", "7d"],
+      "maxAmount": [300, 350, 400, 450, 500, 600, 700, 800, 900, 1000],
+      "cooldown": "12h",
+      "installPrice": [10000, 12000, 14000, 16000, 18000, 20000, 22000, 24000, 26000, 28000]
+    }, {
+      "name": "Genesis",
+      "type": "mining",
+      "description": "Instantly creates new asteroid fields on the Miner's current sector. Does not work on sectors with Jump Gates in White Stars.",
+      "researchArtifact": "Blue Crystal (level 5+)",
+      "levels": [1,2,3,4,5,6,7,8,9,10],
+      "blueprints": [1, 10, 25, 50, 100, 250, 600, 1200, 2500, 5000],
+      "researchPrice": [200000, 250000, 350000, 500000, 800000, 1500000, 2000000, 3000000, 5000000, 8000000],
+      "researchTime": ["2d", "3d", "4d", "5d", "6d", "7d", "7d", "7d", "7d", "7d"],
+      "maxNewAsteroids": [2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+      "valueOfAsteroids": [75, 100, 80, 100, 90, 100, 90, 100, 100, 120],
+      "maxNewHydrogen": [150, 200, 240, 300, 360, 400, 450, 500, 600, 720],
+      "cooldown": "1d",
+      "installPrice": [20000, 23000, 26000, 29000, 32000, 35000, 38000, 41000, 45000, 50000]
+    }
+  ]
 }
