@@ -39,9 +39,6 @@ export default {
 </script>
 
 <style>
-  body {
-    font-size: 0.8em;
-  }
   header {
     margin-bottom: 20px;
   }
