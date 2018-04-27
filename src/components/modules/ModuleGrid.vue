@@ -17,7 +17,7 @@
           <td v-for="(val, index) in value" v-bind:key="index" class="text-right">
             {{ val | formatNumber(key) }}
           </td>
-          <td v-if="singleColumn(value)" v-bind:colspan="len - 1"/>
+          <td v-if="singleColumn(value, item.levels)" v-bind:colspan="len - 1"/>
         </tr>
       </tbody>
     </table>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import numeral from 'numeral';
+import formatter from '@/components/formatter';
 
 export default {
   name: 'ModuleGrid',
@@ -43,37 +43,12 @@ export default {
     };
   },
   methods: {
-    singleColumn: function (value) {
-      if (this.item.levels.length === 1) return false;
-      if (typeof (value) === 'object' && value.length === 1) {
-        return true;
-      };
-      return false;
-    },
-    timeFormat: function (value) {
-      if (isNaN(value)) return value;
-      if (value >= 60) {
-        return numeral(value / 60).format(0.0) + 'm';
-      } else {
-        return value + 's';
-      }
-    }
+    singleColumn: formatter.singleColumn,
+    timeFormat: formatter.timeFormat
   },
   filters: {
-    formatNumber: function (value, key) {
-      if (typeof (value) === 'number') {
-        if (key === 'additionalHydrogenUse') return numeral(value).format('0.0');
-        if (value >= 1) return numeral(value).format('0,0');
-        else return numeral(value).format('0.0%');
-      }
-      return value;
-    },
-    wordify: function (str) {
-      var words = str.replace(/([A-Z])/g, ' $1').replace(/^./, function (letter) {
-        return letter.toUpperCase();
-      });
-      return words;
-    }
+    formatNumber: formatter.formatNumber,
+    wordify: formatter.wordify
   },
   computed: {
     len () {
