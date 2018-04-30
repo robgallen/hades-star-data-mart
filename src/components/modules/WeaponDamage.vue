@@ -3,11 +3,16 @@
     <h2>Weapon damage</h2>
     <highcharts v-bind:options="options" ref="highcharts" />
     <p>This is a test to get highcharts working. Now to load the correct data.</p>
+    <weapon-damage-chart v-bind:weapons="weapons" v-bind:level="10" v-bind:targets="2" />
+    <hr>
+    <weapon-damage-chart v-bind:weapons="weapons" v-bind:level="1" v-bind:targets="1" />
   </div>
 </template>
 
 <script>
 import '@/highcharts.theme.js';
+import data from '@/data/data.js';
+import WeaponDamageChart from '@/components/modules/WeaponDamageChart';
 
 var options = {
   title: {
@@ -63,9 +68,14 @@ var options = {
 };
 
 export default {
+  name: 'WeaponDamage',
+  components: {
+    WeaponDamageChart
+  },
   data () {
     return {
-      options: options
+      options: options,
+      weapons: data.mods.Weapons
     };
   }
 };
