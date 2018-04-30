@@ -6,12 +6,11 @@
       <div class="col-md-6">
         <h2>To do list</h2>
         <ul>
-          <li>Add planet data</li>
           <li>Check data values are correct</li>
           <li>Add planet screen, decide whether any useful calc can be done</li>
+          <li>Add weapon damage charts</li>
           <li>Add module priority list, drag/drop?</li>
           <li>Add read me for data</li>
-          <li>Add drop down menu links</li>
           <li>Add logo</li>
         </ul>
         <h2>Github links</h2>
