@@ -9,10 +9,12 @@ export default {
   // use custom object as json data is static : use $options.mods
   mods: {
     Mining: Mining,
-    PlanetType: PlanetType,
     Shields: Shields,
     Support: Support,
     Trade: Trade,
     Weapons: Weapons
+  },
+  planets: {
+    Type: PlanetType
   }
 };

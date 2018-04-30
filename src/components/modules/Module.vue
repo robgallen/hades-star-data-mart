@@ -9,8 +9,7 @@
         </b-form-group>
       </div>
     </div>
-    <div v-if="selectedMod">
-      <!-- <h2>{{ selectedMod.name }}</h2> -->
+    <div class="row" v-if="selectedMod">
       <module-grid v-for="mod in selectedMod.data" v-bind:key="mod.name" v-bind:mod="mod"/>
     </div>
   </div>

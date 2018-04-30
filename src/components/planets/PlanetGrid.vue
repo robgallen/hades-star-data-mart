@@ -1,14 +1,13 @@
 <template>
   <div class="col-md-12">
     <h3>{{ item.name }}</h3>
-    <p>{{ item.description }}<br>
-      This module is researched from {{ item.researchArtifact }} artefacts.</p>
+    <p>{{ item.description }}</p>
 
     <table class="table table-sm">
       <thead>
         <tr>
           <th/>
-          <th v-for="level in item.levels" v-bind:key="level" class="text-right">{{ level }}</th>
+          <th v-for="level in item.tiers" v-bind:key="level" class="text-right">{{ level }}</th>
         </tr>
       </thead>
       <tbody>
@@ -17,7 +16,7 @@
           <td v-for="(val, index) in value" v-bind:key="index" class="text-right">
             {{ val | formatNumber(key) }}
           </td>
-          <td v-if="singleColumn(value, item.levels)" v-bind:colspan="len - 1"/>
+          <td v-if="singleColumn(value, item.tiers)" v-bind:colspan="len - 1"/>
         </tr>
       </tbody>
     </table>
@@ -28,18 +27,17 @@
 import formatter from '@/components/formatter';
 
 export default {
-  name: 'ModuleGrid',
+  name: 'PlanetGrid',
   props: {
-    mod: {
+    planet: {
       type: Object,
       required: true
     }
   },
   data () {
     return {
-      item: this.mod,
-      ignoreKeys: ['description', 'levels', 'name', 'researchArtifact', 'type'],
-      timeKeys: ['chargeTime', 'cooldown', 'disableTime', 'effectDuration', 'lifeExtension', 'timeToMaximumDamage']
+      item: this.planet,
+      ignoreKeys: ['description', 'tiers', 'name']
     };
   },
   methods: {
@@ -52,31 +50,18 @@ export default {
   },
   computed: {
     len () {
-      return this.mod.levels.length;
+      return this.planet.tiers.length;
     },
     tabularData () {
       var tableData = {};
 
-      Object.keys(this.mod).forEach(function (key) {
+      Object.keys(this.planet).forEach(function (key) {
         if (this.ignoreKeys.includes(key)) {
           // skip
         } else {
-          var value = this.mod[key];
-
-          // these are in seconds
-          if (this.timeKeys.includes(key)) {
-            if (typeof (value) === 'object') {
-              for (var i = 0, len = value.length; i < len; i++) {
-                var val = parseInt(value[i], 10);
-                value[i] = this.timeFormat(val);
-              }
-            } else {
-              value = this.timeFormat(value);
-            }
-          }
+          var value = this.planet[key];
 
           // ensure value is always an array
-
           if (typeof (value) !== 'object') value = [value];
 
           tableData[key] = value;
