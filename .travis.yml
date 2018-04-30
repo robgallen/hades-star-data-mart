@@ -6,12 +6,13 @@ node_js:
 script: npm run build
 
 deploy:
-  provider: pages
+  #provider: pages
+  provider: azure_web_apps
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  #github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: dist
+  #local-dir: dist
   on:
     branch: master
-  repo: robgallen/robgallen.github.io
-  target-branch: master
+  #repo: robgallen/robgallen.github.io
+  #target-branch: master
