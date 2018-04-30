@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import About from '@/components/About';
 import Module from '@/components/modules/Module';
+import WeaponDamage from '@/components/modules/WeaponDamage';
 import Planning from '@/components/modules/Planning';
 import Planet from '@/components/planets/Planet';
 
@@ -25,6 +26,10 @@ export default new Router({
       path: '/planet',
       name: 'Planets',
       component: Planet
+    }, {
+      path: '/module/weapon-damage',
+      name: 'WeaponDamage',
+      component: WeaponDamage
     }
   ]
 });

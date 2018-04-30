@@ -1,5 +1,5 @@
 {
-  "name": "vue-first",
+  "name": "hades-star-data-mart",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Rob Allen <robgallen@gmail.com>",
@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.8",
+    "highcharts": "^6.1.0",
     "numeral": "^2.0.6",
     "vue": "^2.5.2",
+    "vue-highcharts": "0.0.10",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
