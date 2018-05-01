@@ -1,34 +1,52 @@
 <template>
   <div class="container">
     <h2>Weapon damage</h2>
+    <p>This measures DPS on a single target, but this will change depending on the number of targets the battleship has. It is not the total DPS combined, so Mass Battery looks gimped.</p>
+    <div class="row">
+      <div class="col-md-3">
+        <b-form-group label="Weapon level" label-for="level">
+          <b-form-select id="level" v-model="level">
+            <option v-for="n in 10" v-bind:key="n" v-bind:value="n">{{ n }}</option>
+          </b-form-select>
+        </b-form-group>
+      </div>
+      <div class="col-md-3">
+        <b-form-group label="Targets" label-for="targets">
+          <b-form-select id="targets" v-model="targets">
+            <option v-for="n in 5" v-bind:key="n" v-bind:value="n">{{ n }}</option>
+          </b-form-select>
+        </b-form-group>
+      </div>
+      <div class="col-md-6">
+        <label>&nbsp;</label><br>
+        <b-button v-on:click="updateChart">Update</b-button>
+      </div>
+    </div>
     <highcharts v-bind:options="options" ref="highcharts" />
-    <p>This is a test to get highcharts working. Now to load the correct data.</p>
-    <weapon-damage-chart v-bind:weapons="weapons" v-bind:level="10" v-bind:targets="2" />
-    <hr>
-    <weapon-damage-chart v-bind:weapons="weapons" v-bind:level="1" v-bind:targets="1" />
   </div>
 </template>
 
 <script>
 import '@/highcharts.theme.js';
 import data from '@/data/data.js';
-import WeaponDamageChart from '@/components/modules/WeaponDamageChart';
+import formatter from '@/components/formatter';
 
-var options = {
+const displaySeconds = 51;
+
+// chart config
+var chartConfig = {
   title: {
-    text: 'Monthly Average Temperature',
+    text: 'Single target damage',
     x: -20 // center
   },
-  subtitle: {
-    text: 'Source: WorldClimate.com',
-    x: -20
-  },
   xAxis: {
-    categories: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ]
+    title: {
+      text: 'Time'
+    }
   },
   yAxis: {
     title: {
-      text: 'Temperature (°C)'
+      text: 'Damage per second'
     },
     plotLines: [
       {
@@ -38,49 +56,116 @@ var options = {
       }
     ]
   },
-  tooltip: {
-    valueSuffix: '°C'
-  },
   legend: {
     layout: 'vertical',
     align: 'right',
     verticalAlign: 'middle',
     borderWidth: 0
   },
-  series: [
-    {
-      name: 'Tokyo',
-      data: [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6 ]
-    },
-    {
-      name: 'New York',
-      data: [ -0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5 ]
-    },
-    {
-      name: 'Berlin',
-      data: [ -0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0 ]
-    },
-    {
-      name: 'London',
-      data: [ 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8 ]
-    }
-  ]
+  series: []
 };
 
 export default {
   name: 'WeaponDamage',
-  components: {
-    WeaponDamageChart
-  },
   data () {
     return {
-      options: options,
+      level: 1,
+      options: chartConfig,
+      targets: 1,
       weapons: data.mods.Weapons
     };
+  },
+  methods: {
+    updateChart: function () {
+      var series = this.generateSeriesData();
+      this.options.series = series;
+
+      var chart = this.$refs.highcharts.chart;
+      chart.update({ series: series });
+    },
+    generateSeriesData: function () {
+      var series = [];
+
+      for (var i = 0; i < this.weapons.data.length; i++) {
+        var item = this.weapons.data[i];
+
+        switch (item.name) {
+          case 'Battery':
+          case 'Mass Battery':
+            series.push({
+              name: item.name,
+              data: this.batteryDmg(item.minDamagePerSecond)
+            });
+            break;
+          case 'Laser':
+            series.push({
+              name: item.name,
+              data: this.laserDmg(item.minDamagePerSecond, item.maxDamagePerSecond, item.timeToMaximumDamage)
+            });
+            break;
+          case 'Dual Laser':
+            series.push({
+              name: item.name,
+              data: this.dualLaserDmg(item.minDamagePerSecond, item.maxDamagePerSecond, item.timeToMaximumDamage)
+            });
+            break;
+          case 'Barrage':
+            series.push({
+              name: item.name,
+              data: this.barrageDmg(item.minDamagePerSecond, item.maxDamagePerSecond, item.extraDamagePerEnemy)
+            });
+            break;
+        }
+      }
+
+      return series;
+    },
+    // also mass battery
+    batteryDmg: function (minArr) {
+      var arr = [];
+      var dmg = minArr[this.level - 1];
+
+      for (var i = 0; i < displaySeconds; i++) {
+        arr[i] = formatter.decimal(dmg);
+      }
+      return arr;
+    },
+    laserDmg: function (minArr, maxArr, chargeTime) {
+      var arr = [];
+      var min = minArr[this.level - 1];
+      var max = maxArr[this.level - 1];
+
+      for (var i = 0; i < displaySeconds; i++) {
+        var extra = (max - min) / chargeTime * i;
+        var dmg = (min + extra > max) ? max : min + extra;
+        arr[i] = formatter.decimal(dmg);
+      }
+      return arr;
+    },
+    dualLaserDmg: function (minArr, maxArr, chargeTime) {
+      if (this.targets < 2) {
+        return this.batteryDmg(minArr);
+      }
+      return this.laserDmg(minArr, maxArr, chargeTime);
+    },
+    barrageDmg: function (minArr, maxArr, extraArr) {
+      var arr = [];
+      var min = minArr[this.level - 1];
+      var max = maxArr[this.level - 1];
+      var extra = extraArr[this.level - 1];
+
+      var extraDmg = extra * this.targets;
+      var dmg = (min + extraDmg > max) ? max : min + extraDmg;
+
+      for (var i = 0; i < displaySeconds; i++) {
+        arr[i] = formatter.decimal(dmg);
+      }
+      return arr;
+    }
+  },
+  created () {
+    var series = this.generateSeriesData();
+    this.options.series = series;
   }
 };
 </script>
-
-<style scoped>
-
-</style>

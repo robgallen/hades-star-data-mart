@@ -1,6 +1,9 @@
 import numeral from 'numeral';
 
 export default {
+  decimal: function (n) {
+    return Number(parseFloat(n).toFixed(2));
+  },
   formatNumber: function (value, key) {
     if (typeof (value) === 'number') {
       if (key === 'additionalHydrogenUse') return numeral(value).format('0.0');
