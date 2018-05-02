@@ -6,9 +6,14 @@ export default {
   },
   formatNumber: function (value, key) {
     if (typeof (value) === 'number') {
-      if (key === 'additionalHydrogenUse') return numeral(value).format('0.0');
-      if (value >= 1) return numeral(value).format('0,0');
-      else return numeral(value).format('0.0%');
+      if (key === 'additionalHydrogenUse' || key === 'shipmentsPerHour') {
+        return numeral(value).format('0.0');
+      }
+      if (value >= 1) {
+        return numeral(value).format('0,0');
+      } else {
+        return numeral(value).format('0.0%');
+      }
     }
     return value;
   },
