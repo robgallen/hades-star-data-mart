@@ -1,6 +1,6 @@
 <template>
   <div id="damageExample">
-    <p>This is an example of showing combined DPS during a fight, with various ships being destroyed at different times. There are 4 targets initially, and they get destroyed after 6, 10, 20 and 30 seconds.</p>
+    <p>This is an example of showing combined DPS during a fight, with various ships being destroyed at different times. There are 4 targets initially, and they get destroyed after <span v-for="(time, index) in shipDestruction" v-bind:key="index">{{ time - 1 }}<span v-if="index+2 < shipDestruction.length">, </span><span v-if="index+2 === shipDestruction.length"> and </span></span> seconds.</p>
     <div class="row">
       <div class="col-md-3">
         <b-form-group label="Weapon level" label-for="level">
