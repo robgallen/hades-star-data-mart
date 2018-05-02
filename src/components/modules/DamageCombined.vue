@@ -1,7 +1,6 @@
 <template>
-  <div class="container">
-    <h2>Weapon damage</h2>
-    <p>This measures DPS on a single target, but this will change depending on the number of targets the battleship has. It is not the total DPS combined, so Mass Battery looks gimped.</p>
+  <div>
+    <p>This measures combined DPS, but will also change depending on the number of targets the battleship has.</p>
     <div class="row">
       <div class="col-md-3">
         <b-form-group label="Weapon level" label-for="level">
@@ -22,13 +21,12 @@
         <b-button v-on:click="updateChart">Update</b-button>
       </div>
     </div>
-    <highcharts v-bind:options="options" ref="highcharts" />
+    <highcharts v-bind:options="options" ref="hcCombined" />
+    <br>
   </div>
 </template>
 
 <script>
-import '@/highcharts.theme.js';
-import data from '@/data/data.js';
 import formatter from '@/components/formatter';
 
 const displaySeconds = 51;
@@ -36,7 +34,7 @@ const displaySeconds = 51;
 // chart config
 var chartConfig = {
   title: {
-    text: 'Single target damage',
+    text: 'Combined damage',
     x: -20 // center
   },
   xAxis: {
@@ -66,13 +64,18 @@ var chartConfig = {
 };
 
 export default {
-  name: 'WeaponDamage',
+  name: 'DamageCombined',
+  props: {
+    weapons: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       level: 1,
       options: chartConfig,
-      targets: 1,
-      weapons: data.mods.Weapons
+      targets: 1
     };
   },
   methods: {
@@ -80,8 +83,12 @@ export default {
       var series = this.generateSeriesData();
       this.options.series = series;
 
-      var chart = this.$refs.highcharts.chart;
+      var chart = this.$refs.hcCombined.chart;
       chart.update({ series: series });
+
+      window.setTimeout(function () {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 100);
     },
     generateSeriesData: function () {
       var series = [];
@@ -91,10 +98,15 @@ export default {
 
         switch (item.name) {
           case 'Battery':
-          case 'Mass Battery':
             series.push({
               name: item.name,
               data: this.batteryDmg(item.minDamagePerSecond)
+            });
+            break;
+          case 'Mass Battery':
+            series.push({
+              name: item.name,
+              data: this.massBatteryDmg(item.minDamagePerSecond, item.maxTargets)
             });
             break;
           case 'Laser':
@@ -106,7 +118,7 @@ export default {
           case 'Dual Laser':
             series.push({
               name: item.name,
-              data: this.dualLaserDmg(item.minDamagePerSecond, item.maxDamagePerSecond, item.timeToMaximumDamage)
+              data: this.dualLaserDmg(item.minDamagePerSecond, item.maxDamagePerSecond, item.timeToMaximumDamage, item.maxTargets)
             });
             break;
           case 'Barrage':
@@ -120,7 +132,6 @@ export default {
 
       return series;
     },
-    // also mass battery
     batteryDmg: function (minArr) {
       var arr = [];
       var dmg = minArr[this.level - 1];
@@ -130,23 +141,40 @@ export default {
       }
       return arr;
     },
-    laserDmg: function (minArr, maxArr, chargeTime) {
+    massBatteryDmg: function (minArr, targetArr) {
+      var arr = [];
+      var dmg = minArr[this.level - 1];
+      var maxTargets = targetArr[this.level - 1];
+
+      var multiplier = (maxTargets > this.targets) ? maxTargets : this.targets;
+
+      for (var i = 0; i < displaySeconds; i++) {
+        arr[i] = formatter.decimal(dmg * multiplier);
+      }
+      return arr;
+    },
+    laserDmg: function (minArr, maxArr, chargeTime, multiplier) {
       var arr = [];
       var min = minArr[this.level - 1];
       var max = maxArr[this.level - 1];
 
+      multiplier = multiplier || 1;
+
       for (var i = 0; i < displaySeconds; i++) {
         var extra = (max - min) / chargeTime * i;
         var dmg = (min + extra > max) ? max : min + extra;
-        arr[i] = formatter.decimal(dmg);
+        arr[i] = formatter.decimal(dmg * multiplier);
       }
       return arr;
     },
-    dualLaserDmg: function (minArr, maxArr, chargeTime) {
+    dualLaserDmg: function (minArr, maxArr, chargeTime, maxTargets) {
       if (this.targets < 2) {
         return this.batteryDmg(minArr);
       }
-      return this.laserDmg(minArr, maxArr, chargeTime);
+
+      var multiplier = (maxTargets > this.targets) ? maxTargets : this.targets;
+
+      return this.laserDmg(minArr, maxArr, chargeTime, multiplier);
     },
     barrageDmg: function (minArr, maxArr, extraArr) {
       var arr = [];

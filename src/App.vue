@@ -12,7 +12,7 @@
                 <b-nav-item-dropdown text="Modules">
                   <b-dropdown-item to="/module" exact>Types</b-dropdown-item>
                   <b-dropdown-item to="/module/planning">Planning</b-dropdown-item>
-                  <b-dropdown-item to="/module/weapon-damage">Weapon Damage</b-dropdown-item>
+                  <b-dropdown-item to="/module/damage">Weapon Damage</b-dropdown-item>
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown text="Planets">
                   <b-dropdown-item to="/planet" exact>Types</b-dropdown-item>
@@ -48,6 +48,9 @@ export default {
 </script>
 
 <style>
+  #app {
+    margin-bottom: 40px;
+  }
   header {
     margin-bottom: 20px;
   }
