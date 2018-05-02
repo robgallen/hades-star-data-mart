@@ -1,6 +1,6 @@
 <template>
-  <div id="damageCombined">
-    <p>This measures combined DPS, but will also change depending on the number of targets the battleship has.</p>
+  <div id="damageExample">
+    <p>This is an example of showing combined DPS during a fight, with various ships being destroyed at different times. There are 4 targets initially, and they get destroyed after 6, 10, 20 and 30 seconds.</p>
     <div class="row">
       <div class="col-md-3">
         <b-form-group label="Weapon level" label-for="level">
@@ -9,19 +9,12 @@
           </b-form-select>
         </b-form-group>
       </div>
-      <div class="col-md-3">
-        <b-form-group label="Targets" label-for="targets">
-          <b-form-select id="targets" v-model="targets">
-            <option v-for="n in 5" v-bind:key="n" v-bind:value="n">{{ n }}</option>
-          </b-form-select>
-        </b-form-group>
-      </div>
       <div class="col-md-6">
         <label>&nbsp;</label><br>
         <b-button v-on:click="updateChart">Update</b-button>
       </div>
     </div>
-    <highcharts v-bind:options="options" ref="hcCombined" />
+    <highcharts v-bind:options="options" ref="hcExample" />
     <br>
   </div>
 </template>
@@ -29,18 +22,34 @@
 <script>
 import formatter from '@/components/formatter';
 
-const displaySeconds = 51;
+const displaySeconds = 31;
 
 // chart config
 var chartConfig = {
   title: {
-    text: 'Combined damage',
+    text: 'Combined damage - Example',
     x: -20 // center
   },
   xAxis: {
     title: {
       text: 'Time'
-    }
+    },
+    plotLines: [{
+      color: '#FF0000',
+      label: { text: '3 targets', verticalAlign: 'bottom', textAlign: 'right', style: { color: '#fff' } },
+      width: 1,
+      value: 6
+    }, {
+      color: '#FF0000',
+      label: { text: '2 targets', verticalAlign: 'bottom', textAlign: 'right', style: { color: '#fff' } },
+      width: 1,
+      value: 10
+    }, {
+      color: '#FF0000',
+      label: { text: '1 target', verticalAlign: 'bottom', textAlign: 'right', style: { color: '#fff' } },
+      width: 1,
+      value: 20
+    }]
   },
   yAxis: {
     title: {
@@ -64,7 +73,7 @@ var chartConfig = {
 };
 
 export default {
-  name: 'DamageCombined',
+  name: 'DamageExample',
   props: {
     weapons: {
       type: Object,
@@ -75,7 +84,8 @@ export default {
     return {
       level: 1,
       options: chartConfig,
-      targets: 1
+      targets: 4,
+      shipDestruction: [7, 11, 21, 31]
     };
   },
   methods: {
@@ -83,10 +93,10 @@ export default {
       var series = this.generateSeriesData();
       this.options.series = series;
 
-      var chart = this.$refs.hcCombined.chart;
+      var chart = this.$refs.hcExample.chart;
       chart.update({ series: series });
 
-      document.getElementById('damageCombined').scrollIntoView(true);
+      document.getElementById('damageExample').scrollIntoView(true);
     },
     generateSeriesData: function () {
       var series = [];
@@ -143,48 +153,73 @@ export default {
       var arr = [];
       var dmg = minArr[this.level - 1];
       var maxTargets = targetArr[this.level - 1];
+      var i = 0;
 
-      var multiplier = (this.targets > maxTargets) ? maxTargets : this.targets;
+      for (var x = 0; x < this.shipDestruction.length; x++) {
+        var t = this.shipDestruction[x];
+        this.targets = 4 - x;
+        var multiplier = (this.targets > maxTargets) ? maxTargets : this.targets;
 
-      for (var i = 0; i < displaySeconds; i++) {
-        arr[i] = formatter.decimal(dmg * multiplier);
+        do {
+          arr[i] = formatter.decimal(dmg * multiplier);
+          i++;
+        } while (i < t);
       }
       return arr;
     },
-    laserDmg: function (minArr, maxArr, chargeTime, multiplier) {
+    laserDmg: function (minArr, maxArr, chargeTime) {
       var arr = [];
       var min = minArr[this.level - 1];
       var max = maxArr[this.level - 1];
 
-      multiplier = multiplier || 1;
-
       for (var i = 0; i < displaySeconds; i++) {
         var extra = (max - min) / chargeTime * i;
         var dmg = (min + extra > max) ? max : min + extra;
-        arr[i] = formatter.decimal(dmg * multiplier);
+        arr[i] = formatter.decimal(dmg);
       }
       return arr;
     },
     dualLaserDmg: function (minArr, maxArr, chargeTime, maxTargets) {
-      if (this.targets < 2) {
-        return this.batteryDmg(minArr);
+      var arr = [];
+      var min = minArr[this.level - 1];
+      var max = maxArr[this.level - 1];
+      var i = 0;
+
+      for (var x = 0; x < this.shipDestruction.length; x++) {
+        var t = this.shipDestruction[x];
+        this.targets = 4 - x;
+        var multiplier = (this.targets > maxTargets) ? maxTargets : this.targets;
+
+        do {
+          if (this.targets < 2) {
+            arr[i] = formatter.decimal(min);
+          } else {
+            var extra = (max - min) / chargeTime * i;
+            var dmg = (min + extra > max) ? max : min + extra;
+            arr[i] = formatter.decimal(dmg * multiplier);
+          }
+          i++;
+        } while (i < t);
       }
-
-      var multiplier = (this.targets > maxTargets) ? maxTargets : this.targets;
-
-      return this.laserDmg(minArr, maxArr, chargeTime, multiplier);
+      return arr;
     },
     barrageDmg: function (minArr, maxArr, extraArr) {
       var arr = [];
       var min = minArr[this.level - 1];
       var max = maxArr[this.level - 1];
       var extra = extraArr[this.level - 1];
+      var i = 0;
 
-      var extraDmg = extra * this.targets;
-      var dmg = (min + extraDmg > max) ? max : min + extraDmg;
+      for (var x = 0; x < this.shipDestruction.length; x++) {
+        var t = this.shipDestruction[x];
+        this.targets = 4 - x;
+        var extraDmg = extra * this.targets;
+        var dmg = (min + extraDmg > max) ? max : min + extraDmg;
 
-      for (var i = 0; i < displaySeconds; i++) {
-        arr[i] = formatter.decimal(dmg);
+        do {
+          arr[i] = formatter.decimal(dmg);
+          i++;
+        } while (i < t);
       }
       return arr;
     }
