@@ -18,7 +18,7 @@
       "maxLevel": [15, 30, 40],
       "creditYield": [0.7, 0.8, 0.9],
       "hydrogenYield": [0.5, 0.6, 0.7],
-      "shipmentModifer": [0.9, 0.95, "100%"],
+      "shipmentModifer": [0.9, 0.95, 1.0],
       "maxShipments": [15, 24, 36],
       "shipmentsPerHour": [1.2, 2.0, 3.0]
     }, {
@@ -26,9 +26,9 @@
       "description": "Water planets produce decent reward shipments and give your Empire a steady income of credits per hour.",
       "tiers": [1,2,3],
       "maxLevel": [15, 30, 40],
-      "creditYield": "100%",
-      "hydrogenYield": "100%",
-      "shipmentModifer": ["115%", "120%", "125%"],
+      "creditYield": 1.0,
+      "hydrogenYield": 1.0,
+      "shipmentModifer": [1.15, 1.20, 1.25],
       "maxShipments": [18, 27, 35],
       "shipmentsPerHour": [1.5, 2.2, 3.0]
     }, {
@@ -36,9 +36,9 @@
       "description": "Terran planets produce regular reward shipments and give your Empire a small income of hydrogen per hour.",
       "tiers": [1,2,3],
       "maxLevel": [15, 30, 40],
-      "creditYield": "100%",
-      "hydrogenYield": "100%",
-      "shipmentModifer": ["115%", "120%", "125%"],
+      "creditYield": 1.0,
+      "hydrogenYield": 1.0,
+      "shipmentModifer": [1.15, 1.20, 1.25],
       "maxShipments": [18, 27, 35],
       "shipmentsPerHour": [1.5, 2.2, 3.0]
     }, {
@@ -46,9 +46,9 @@
       "description": "Gas planets produce regular reward shipments and give your Empire a small income of credits per hour.",
       "tiers": [1,2],
       "maxLevel": [20, 40],
-      "creditYield": "100%",
-      "hydrogenYield": "100%",
-      "shipmentModifer": ["120%", "125%"],
+      "creditYield": 1.0,
+      "hydrogenYield": 1.0,
+      "shipmentModifer": [1.20, 1.25],
       "maxShipments": [22, 40],
       "shipmentsPerHour": [1.8, 3.2]
     }, {
@@ -56,9 +56,9 @@
       "description": "Ice planets produce high reward shipments and give your Empire a steady income of Credits and Hydrogen per hour.",
       "tiers": [1],
       "maxLevel": [40],
-      "creditYield": "100%",
-      "hydrogenYield": "100%",
-      "shipmentModifer": ["140%"],
+      "creditYield": 1.0,
+      "hydrogenYield": 1.0,
+      "shipmentModifer": [1.40],
       "maxShipments": [48],
       "shipmentsPerHour": [4.0]
     }

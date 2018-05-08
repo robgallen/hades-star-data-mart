@@ -1,14 +1,26 @@
 import numeral from 'numeral';
 
+var specificKeyFormat = {
+  'additionalHydrogenUse': '0.0',
+  'creditYield': '0.0%',
+  'hydrogenYield': '0.0%',
+  'shipmentModifer': '0.0%',
+  'shipmentsPerHour': '0.0',
+  'speedIncreasePerPlayer': '0.0%'
+};
+
 export default {
   decimal: function (n) {
     return Number(parseFloat(n).toFixed(2));
   },
   formatNumber: function (value, key) {
     if (typeof (value) === 'number') {
-      if (key === 'additionalHydrogenUse' || key === 'shipmentsPerHour') {
-        return numeral(value).format('0.0');
+      // see if we have a specific format to use for this propery
+      var format = specificKeyFormat[key];
+      if (format) {
+        return numeral(value).format(format);
       }
+      // otherwise assume that it is a number or percent
       if (value >= 1) {
         return numeral(value).format('0,0');
       } else {
