@@ -1,9 +1,9 @@
 <template>
   <div class="form-row">
-    <div class="col-md-5">
-      <input v-bind:value="item.name" type="text" readonly class="form-control-plaintext">
+    <div class="col-md-6">
+      <input v-bind:value="item.name" v-on:click="addPriority" type="text" readonly class="form-control-plaintext">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <b-form-select v-model="level" v-bind:options="levels" size="sm" />
     </div>
     <div class="col-md-3">
@@ -37,6 +37,11 @@ export default {
       item: this.mod,
       level: 0
     };
+  },
+  methods: {
+    addPriority: function () {
+      this.$emit('addPriority', this.item);
+    }
   },
   computed: {
     levels () {
