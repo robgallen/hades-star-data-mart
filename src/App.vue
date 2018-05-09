@@ -16,6 +16,7 @@
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown text="Planets">
                   <b-dropdown-item to="/planet" exact>Types</b-dropdown-item>
+                  <b-dropdown-item to="/planet/capacity">Capacity</b-dropdown-item>
                 </b-nav-item-dropdown>
               </b-navbar-nav>
             </b-collapse>
