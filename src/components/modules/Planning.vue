@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container planningView">
     <p>Use this to help plan your next upgrade. Enter the level your module is currently at, and it will tell you how much the <strong>next</strong> upgrade will cost.<br>Your values will be stored in local storage for the next time you visit.</p>
     <div class="row">
       <div class="col-md-4">
@@ -66,5 +66,7 @@ export default {
 </script>
 
 <style>
-
+  .planningView input, .planningView select {
+    font-size: 90%;
+  }
 </style>

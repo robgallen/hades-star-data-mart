@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <input v-bind:value="item.name" v-on:click="addPriority" type="text" readonly class="form-control-plaintext">
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <b-form-select v-model="level" v-bind:options="levels" size="sm" />
     </div>
     <div class="col-md-3">
