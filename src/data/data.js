@@ -6,6 +6,7 @@ import Weapons from './modules-weapon.json';
 
 import PlanetLevel from './planets-level.json';
 import PlanetType from './planets-type.json';
+import Scanner from './planets-scanner.json';
 
 export default {
   // use custom object as json data is static : use $options.mods
@@ -18,6 +19,7 @@ export default {
   },
   planets: {
     Level: PlanetLevel,
-    Type: PlanetType
+    Type: PlanetType,
+    Scanner: Scanner
   }
 };
