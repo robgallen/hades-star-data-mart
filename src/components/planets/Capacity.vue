@@ -92,7 +92,7 @@ export default {
       var mean = remaining / n;
       // find index, credits, level
       var index = planetCredits.findIndex(p => {
-        return (p > mean);
+        return (p >= mean);
       });
       // check out of range
       if (index === -1) {
@@ -121,7 +121,7 @@ export default {
         this.meanCalc(n - y, remainder);
       } else {
         var lastIndex = planetCredits.findIndex(p => {
-          return (p > remainder);
+          return (p >= remainder);
         });
 
         this.tabularData.push({
