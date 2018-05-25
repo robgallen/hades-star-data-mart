@@ -11,7 +11,7 @@
         <div class="form-group col-md-2">
           <label for="planetCount">Number of planets</label>
           <b-form-select id="planetCount" v-model="planetCount">
-            <option v-for="n in 16" v-bind:key="n" v-bind:value="n">{{ n }}</option>
+            <option v-for="n in range(8, 16)" v-bind:key="n" v-bind:value="n">{{ n }}</option>
           </b-form-select>
         </div>
         <div class="form-group col-md-2">
@@ -33,7 +33,11 @@
           <tbody>
             <tr v-for="(row, index) in tabularData" v-bind:key="index">
               <td>{{ index + 1 }}</td>
-              <td>{{ row.level }}</td>
+              <td>
+                <b-form-select v-model="row.level" v-on:change="updateRow(index, $event)">
+                  <option v-for="x in limit(index)" v-bind:key="x" v-bind:value="x">{{ x }}</option>
+                </b-form-select>
+              </td>
               <td>{{ row.creditStorage | formatNumber }}</td>
             </tr>
           </tbody>
@@ -84,6 +88,14 @@ export default {
       this.outOfRange = false;
       this.meanCalc(this.planetCount, this.capacityReq);
     },
+    limit: function (i) {
+      // first 4 planets are capped at lvl 15, etc.
+      if (i < 4) return 15;
+      if (i < 5) return 20;
+      // TODO: not sure when lvl 30 limit is reached
+      if (i < 8) return 30;
+      return 40;
+    },
     meanCalc: function (n, remaining) {
       var planetCredits = this.planets.creditStorage;
       var planetLevels = this.planets.level;
@@ -99,8 +111,16 @@ export default {
         this.outOfRange = true;
         return;
       };
+
+      // first 4 planets are limited to lvl 15
+      if (this.tabularData.length < 4 && index > 14 && n >= 4) {
+        index = 14;
+      }
+      // TODO: 5th planet should be lvl 20 max
+
       var credits = planetCredits[index];
       var level = planetLevels[index];
+
       // half n, round up (y)
       var y = Math.ceil(n / 2);
       // total credits * y
@@ -129,6 +149,17 @@ export default {
           creditStorage: planetCredits[lastIndex]
         });
       }
+    },
+    range: function (start, end) {
+      return Array(end - start + 1).fill().map((_, idx) => start + idx);
+    },
+    updateRow: function (i, level) {
+      var planetCredits = this.planets.creditStorage;
+
+      var credits = planetCredits[level - 1];
+      if (credits) {
+        this.tabularData[i].creditStorage = credits;
+      }
     }
   },
   filters: {
@@ -137,4 +168,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.table-sm select {
+  width: 50%;
+}
+</style>
