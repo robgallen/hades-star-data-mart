@@ -6,14 +6,7 @@ node_js:
 script: npm run build
 
 deploy:
-  #provider: pages
   provider: azure_web_apps
   verbose: true
   skip-cleanup: true
-  #github-token: $GITHUB_TOKEN
-  keep-history: true
-  #local-dir: dist
-  on:
-    branch: master
-  #repo: robgallen/robgallen.github.io
-  #target-branch: master
+  #keep-history: true
