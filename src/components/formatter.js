@@ -38,8 +38,16 @@ export default {
   },
   timeFormat: function (value) {
     if (isNaN(value)) return value;
-    if (value >= 60) {
-      return numeral(value / 60).format(0.0) + 'm';
+
+    function timeFormatInternal (value, divider, suffix) {
+      var f = (value % divider === 0) ? '0' : '0.0';
+      return numeral(value / divider).format(f) + suffix;
+    }
+
+    if (value >= 3600) {
+      return timeFormatInternal(value, 3600, 'h');
+    } else if (value >= 60) {
+      return timeFormatInternal(value, 60, 'm');
     } else {
       return value + 's';
     }
