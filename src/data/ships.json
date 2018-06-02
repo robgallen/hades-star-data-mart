@@ -1,0 +1,43 @@
+{
+  "name": "Ships",
+  "data": [
+    {
+      "name": "Transport",
+      "description": "Transport ships are crucial for trade. Use them to deliver shipments between planets and moons, and to transfer Artifacts from Red Stars.",
+      "levels": [1,2,3,4,5],
+      "buildCost": [250, 1000, 8000, 20000, 50000],
+      "upgradeCost": ["-", 10000, 60000, 300000, 1000000],
+      "speed": 576,
+      "additionalHydrogenUse": [1.8, 2.4, 6.0, 8.0, 10.0],
+      "jumpCost": [15, 25, 50, 75, 100],
+      "baseCargoSlots": [1, 2, 3, 4, 5],
+      "tradeModules": [1, 2, 3, 4, 5],
+      "supportModules": [0, 0, 1, 1, 1]
+    }, {
+      "name": "Miner",
+      "description": "Miner ships can collect Hydrogen from asteroid fields. Miners always cost 1 hydrogen to move.",
+      "levels": [1,2,3,4,5],
+      "buildCost": [500, 1000, 10000, 30000, 60000],
+      "upgradeCost": ["-", 5000, 50000, 250000, 800000],
+      "speed": 432,
+      "miningSectors": [1, 2, 3, 4, 5],
+      "miningSpeed": [6.0, 7.5, 12.0, 24.0, 60.0],
+      "baseHydrogenCapacity": [50, 250, 600, 1200, 2000],
+      "jumpCost": [5, 10, 15, 20, 25],
+      "baseCargoSlots": [1, 2, 3, 4, 5],
+      "miningModules": [1, 2, 2, 3, 4],
+      "supportModules": [0, 0, 1, 1, 1]
+    }, {
+      "name": "Battleship",
+      "description": "A combat ship that can be equipped with weapons, a shield, and additional support modules.",
+      "levels": [1,2,3,4,5],
+      "buildCost": [750, 1500, 20000, 60000, 150000],
+      "upgradeCost": ["-", 10000, 80000, 400000, 1500000],
+      "speed": 600,
+      "hullStrength": [4000, 5000, 6000, 7500, 9000],
+      "additionalHydrogenUse": [2.8, 4.2, 12.0, 24.0, 40.0],
+      "jumpCost": [20, 50, 80, 120, 200],
+      "supportModules": [0, 1, 2, 3, 4]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import Damage from '@/components/modules/Damage';
 import Planning from '@/components/modules/Planning';
 import Planet from '@/components/planets/Planet';
 import Capacity from '@/components/planets/Capacity';
+import Ships from '@/components/Ships';
 
 Vue.use(Router);
 
@@ -36,6 +37,10 @@ export default new Router({
       path: '/planet/capacity',
       name: 'Capacity',
       component: Capacity
+    }, {
+      path: '/ships',
+      name: 'Ships',
+      component: Ships
     }
   ]
 });

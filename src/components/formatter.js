@@ -6,7 +6,8 @@ var specificKeyFormat = {
   'hydrogenYield': '0.0%',
   'shipmentModifer': '0.0%',
   'shipmentsPerHour': '0.0',
-  'speedIncreasePerPlayer': '0.0%'
+  'speedIncreasePerPlayer': '0.0%',
+  'supportModules': '0'
 };
 
 export default {

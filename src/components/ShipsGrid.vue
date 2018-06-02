@@ -1,8 +1,7 @@
 <template>
   <div class="col-md-12">
     <h3>{{ item.name }}</h3>
-    <p>{{ item.description }}<br>
-      This module is researched from {{ item.researchArtifact }} artefacts.</p>
+    <p>{{ item.description }}</p>
 
     <table class="table table-sm">
       <thead>
@@ -28,18 +27,17 @@
 import formatter from '@/components/formatter';
 
 export default {
-  name: 'ModuleGrid',
+  name: 'ShipsGrid',
   props: {
-    mod: {
+    ship: {
       type: Object,
       required: true
     }
   },
   data () {
     return {
-      item: this.mod,
-      ignoreKeys: ['description', 'levels', 'name', 'researchArtifact', 'type'],
-      timeKeys: ['chargeTime', 'cooldown', 'disableTime', 'effectDuration', 'lifeExtension', 'timeToMaximumDamage']
+      item: this.ship,
+      ignoreKeys: ['description', 'levels', 'name', 'type']
     };
   },
   methods: {
@@ -52,28 +50,16 @@ export default {
   },
   computed: {
     len () {
-      return this.mod.levels.length;
+      return this.ship.levels.length;
     },
     tabularData () {
       var tableData = {};
 
-      Object.keys(this.mod).forEach(function (key) {
+      Object.keys(this.ship).forEach(function (key) {
         if (this.ignoreKeys.includes(key)) {
           // skip
         } else {
-          var value = this.mod[key];
-
-          // these are in seconds
-          if (this.timeKeys.includes(key)) {
-            if (typeof (value) === 'object') {
-              for (var i = 0, len = value.length; i < len; i++) {
-                var val = parseInt(value[i], 10);
-                value[i] = this.timeFormat(val);
-              }
-            } else {
-              value = this.timeFormat(value);
-            }
-          }
+          var value = this.ship[key];
 
           // ensure value is always an array
           if (typeof (value) !== 'object') value = [value];
@@ -88,6 +74,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 </style>
