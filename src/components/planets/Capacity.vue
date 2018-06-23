@@ -66,7 +66,7 @@ export default {
       capacityReq: 225000,
       outOfRange: false,
       planetCount: 8,
-      planets: data.planets.Level.data,
+      planets: data.planets.Level.data[0],
       tabularData: []
     };
   },
@@ -98,7 +98,7 @@ export default {
     },
     meanCalc: function (n, remaining) {
       var planetCredits = this.planets.creditStorage;
-      var planetLevels = this.planets.level;
+      var planetLevels = this.planets.levels;
 
       // find mean
       var mean = remaining / n;

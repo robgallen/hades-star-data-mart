@@ -7,7 +7,7 @@ import Weapons from './modules-weapon.json';
 // planets
 import PlanetLevel from './planets-level.json';
 import PlanetType from './planets-type.json';
-import Scanner from './planets-scanner.json';
+import PlanetProduction from './planets-production.json';
 // other
 import Ships from './ships.json';
 
@@ -23,7 +23,7 @@ export default {
   planets: {
     Level: PlanetLevel,
     Type: PlanetType,
-    Scanner: Scanner
+    Production: PlanetProduction
   },
   Ships: Ships
 };
