@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     add: function () {
-      var priority = {
+      let priority = {
         type: this.type,
         name: this.upgrade,
         level: this.level,
@@ -99,7 +99,7 @@ export default {
     selectType: function (val) {
       this.type = val;
 
-      var typeData = this.types.find(function (o) {
+      let typeData = this.types.find(function (o) {
         return o.name === val;
       });
 
@@ -108,7 +108,7 @@ export default {
     selectUpgrade: function (val) {
       this.upgrade = val;
 
-      var itemData = this.upgrades.find(function (o) {
+      let itemData = this.upgrades.find(function (o) {
         return o.name === val;
       });
       this.item = itemData;
@@ -118,7 +118,7 @@ export default {
     },
     selectLevel: function (val) {
       this.level = val;
-      var index = val - 1;
+      const index = val - 1;
 
       if (this.item.researchPrice) this.cost = this.item.researchPrice[index];
       else if (this.item.upgradeCost) this.cost = this.item.upgradeCost[index];
@@ -129,7 +129,7 @@ export default {
       else if (this.item.buildTime) this.time = this.item.buildTime[index];
 
       // emit new priority to parent
-      if (val > 1) {
+      if (this.level > 1 && this.type && this.upgrade) {
         this.add();
       }
     }

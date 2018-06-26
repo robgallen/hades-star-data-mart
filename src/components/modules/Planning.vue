@@ -77,52 +77,54 @@ export default {
   },
   mounted () {
     if (window.localStorage && window.localStorage.getItem(storageKey)) {
-      var priorityPlanning = JSON.parse(window.localStorage.getItem(storageKey));
+      const priorityPlanning = JSON.parse(window.localStorage.getItem(storageKey));
       this.priorities = priorityPlanning;
     }
   },
   methods: {
     addPriority: function (item) {
-      // check whether already in array
-      var len = this.priorities.length;
-      var found = false;
+      if (item.type && item.name && item.level && item.cost) {
+        // check whether already in array
+        let len = this.priorities.length;
+        let found = false;
 
-      while (len--) {
-        if (this.priorities[len].name === item.name) {
-          this.priorities[len] = item;
-          found = true;
-        };
-      }
+        while (len--) {
+          if (this.priorities[len].name === item.name) {
+            this.priorities[len] = item;
+            found = true;
+          };
+        }
 
-      // add to array
-      if (!found) {
-        this.priorities.push(item);
-      }
+        // add to array
+        if (!found) {
+          this.priorities.push(item);
+        }
 
-      this.storePriorities();
-      this.sumCost();
+        this.storePriorities();
+        this.sumCost();
+      };
     },
     newPriority: function () {
       this.priorities.push({});
     },
     removePriority: function (name) {
       // this will remove all 'planets' etc.
-      var reducedList = this.priorities.filter(p => p.name !== name);
+      const reducedList = this.priorities.filter(p => p.name !== name);
       this.priorities = reducedList;
 
       this.storePriorities();
     },
     storePriorities: function () {
       if (window.localStorage) {
-        var priorityPlanning = this.priorities.filter(p => p.name !== null);
+        const priorityPlanning = this.priorities.filter(p => p.name !== null);
         window.localStorage.setItem(storageKey, JSON.stringify(priorityPlanning));
       }
     },
     sumCost: function () {
-      var len = this.priorities.length;
-      var sum = 0;
-      for (var i = 0; i < len; i++) {
-        sum += this.priorities[i].cost;
+      let len = this.priorities.length;
+      let sum = 0;
+      while (len--) {
+        sum += this.priorities[len].cost;
       }
       this.totalCost = sum;
     }
