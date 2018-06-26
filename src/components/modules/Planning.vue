@@ -44,7 +44,7 @@
           <tfoot>
             <tr>
               <td colspan="3">&nbsp;</td>
-              <td><strong v-if="priorities.length">{{ sumCost | formatNumber }}</strong></td>
+              <td><strong v-if="priorities.length">{{ totalCost | formatNumber }}</strong></td>
               <td colspan="2">&nbsp;</td>
             </tr>
           </tfoot>
@@ -71,23 +71,14 @@ export default {
   data () {
     return {
       mods: data.mods,
-      priorities: []
+      priorities: [],
+      totalCost: 0
     };
   },
   mounted () {
     if (window.localStorage && window.localStorage.getItem(storageKey)) {
       var priorityPlanning = JSON.parse(window.localStorage.getItem(storageKey));
       this.priorities = priorityPlanning;
-    }
-  },
-  computed: {
-    sumCost () {
-      var len = this.priorities.length;
-      var sum = 0;
-      for (var i = 0; i < len; i++) {
-        sum += this.priorities[i].cost;
-      }
-      return sum;
     }
   },
   methods: {
@@ -109,6 +100,7 @@ export default {
       }
 
       this.storePriorities();
+      this.sumCost();
     },
     newPriority: function () {
       this.priorities.push({});
@@ -125,6 +117,14 @@ export default {
         var priorityPlanning = this.priorities.filter(p => p.name !== null);
         window.localStorage.setItem(storageKey, JSON.stringify(priorityPlanning));
       }
+    },
+    sumCost: function () {
+      var len = this.priorities.length;
+      var sum = 0;
+      for (var i = 0; i < len; i++) {
+        sum += this.priorities[i].cost;
+      }
+      this.totalCost = sum;
     }
   },
   filters: {
