@@ -2,7 +2,7 @@
   <tr>
     <td>
       <b-form-select id="selectType" v-model="type" v-on:change="selectType">
-        <option v-for="t in types" v-bind:key="t.name" v-bind:value="t">{{ t.name }}</option>
+        <option v-for="t in types" v-bind:key="t.name" v-bind:value="t.name">{{ t.name }}</option>
       </b-form-select>
     </td>
     <td>
@@ -15,8 +15,11 @@
         <option v-for="l in item.levels" v-bind:key="l" v-bind:value="l">{{ l }}</option>
       </b-form-select>
     </td>
-    <td>{{ price | formatNumber }}</td>
+    <td>{{ cost | formatNumber }}</td>
     <td>{{ time }}</td>
+    <td>
+      <b-button v-on:click="remove" v-if="!isNew">-</b-button>
+    </td>
   </tr>
 </template>
 
@@ -34,9 +37,9 @@ export default {
   },
   data () {
     return {
+      cost: '',
       item: {},
       level: 1,
-      price: '',
       time: '',
       type: '',
       types: [],
@@ -52,17 +55,59 @@ export default {
       { name: 'Shields', items: data.mods.Shields },
       { name: 'Ships', items: data.Ships },
       { name: 'Support', items: data.mods.Support },
-      { name: 'Weapon', items: data.mods.Weapons }
+      { name: 'Trade', items: data.mods.Trade },
+      { name: 'Weapons', items: data.mods.Weapons }
     ];
+
+    if (this.priority && this.priority.name) {
+      this.selectType(this.priority.type);
+      this.selectUpgrade(this.priority.name);
+      this.selectLevel(this.priority.level);
+    } else {
+      this.reset();
+    }
+  },
+  computed: {
+    isNew: function () {
+      return !this.priority.name;
+    }
   },
   methods: {
-    selectType: function (val) {
-      this.selectedType = val;
+    add: function () {
+      var priority = {
+        type: this.type,
+        name: this.upgrade,
+        level: this.level,
+        cost: this.cost
+      };
 
-      var typeData = val.items;
-      this.upgrades = typeData.data;
+      // add to master list
+      this.$emit('addPriority', priority);
+
+      // reset
+      if (this.isNew) {
+        window.setTimeout(() => this.reset(), 200);
+      }
+    },
+    remove: function () {
+      this.$emit('removePriority', this.upgrade);
+    },
+    reset: function () {
+      this.type = this.upgrade = this.cost = this.time = '';
+      this.level = 1;
+    },
+    selectType: function (val) {
+      this.type = val;
+
+      var typeData = this.types.find(function (o) {
+        return o.name === val;
+      });
+
+      this.upgrades = typeData.items.data;
     },
     selectUpgrade: function (val) {
+      this.upgrade = val;
+
       var itemData = this.upgrades.find(function (o) {
         return o.name === val;
       });
@@ -75,15 +120,18 @@ export default {
       this.level = val;
       var index = val - 1;
 
-      if (this.item.researchPrice) this.price = this.item.researchPrice[index];
-      else if (this.item.upgradeCost) this.price = this.item.upgradeCost[index];
-      else if (this.item.cost) this.price = this.item.cost[index];
+      if (this.item.researchPrice) this.cost = this.item.researchPrice[index];
+      else if (this.item.upgradeCost) this.cost = this.item.upgradeCost[index];
+      else if (this.item.cost) this.cost = this.item.cost[index];
 
       if (this.item.researchTime) this.time = this.item.researchTime[index];
       else if (this.item.upgradeTime) this.time = this.item.upgradeTime[index];
       else if (this.item.buildTime) this.time = this.item.buildTime[index];
 
       // emit new priority to parent
+      if (val > 1) {
+        this.add();
+      }
     }
   },
   filters: {

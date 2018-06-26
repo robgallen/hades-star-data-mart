@@ -26,7 +26,7 @@
       <b-tab title="Priorities">
         <br>
         <p v-if="priorities.length === 0">You have no priorities set right now.</p>
-        <table class="table" v-if="priorities.length > 0">
+        <table class="table">
           <thead>
             <tr>
               <th>Type</th>
@@ -34,15 +34,21 @@
               <th>Next level</th>
               <th>Cost</th>
               <th>Duration</th>
+              <th/>
             </tr>
           </thead>
           <tbody>
-            <planning-priority v-for="priority in priorities" v-bind:key="priority.name" v-bind:priority="priority" />
+            <planning-priority v-bind:priority="{}" v-on:addPriority="addPriority" />
+            <planning-priority v-for="priority in priorities" v-bind:key="priority.name" v-bind:priority="priority" v-on:addPriority="addPriority" v-on:removePriority="removePriority" />
           </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">&nbsp;</td>
+              <td><strong v-if="priorities.length">{{ sumCost | formatNumber }}</strong></td>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+          </tfoot>
         </table>
-        <b-button v-on:click="addPriority">Add priority</b-button>
-        <br>
-        <p>TODO: use local storage and sync with Upgrades tab. add drag/drop re-order</p>
       </b-tab>
     </b-tabs>
   </div>
@@ -50,8 +56,11 @@
 
 <script>
 import data from '@/data/data.js';
+import formatter from '@/components/formatter';
 import PlanningRow from '@/components/modules/PlanningRow';
 import PlanningPriority from '@/components/modules/PlanningPriority';
+
+const storageKey = 'priorityPlanning';
 
 export default {
   name: 'Planning',
@@ -65,12 +74,61 @@ export default {
       priorities: []
     };
   },
-  methods: {
-    addPriority: function () {
-      this.priorities.push({
-        name: 'new'
-      });
+  mounted () {
+    if (window.localStorage && window.localStorage.getItem(storageKey)) {
+      var priorityPlanning = JSON.parse(window.localStorage.getItem(storageKey));
+      this.priorities = priorityPlanning;
     }
+  },
+  computed: {
+    sumCost () {
+      var len = this.priorities.length;
+      var sum = 0;
+      for (var i = 0; i < len; i++) {
+        sum += this.priorities[i].cost;
+      }
+      return sum;
+    }
+  },
+  methods: {
+    addPriority: function (item) {
+      // check whether already in array
+      var len = this.priorities.length;
+      var found = false;
+
+      while (len--) {
+        if (this.priorities[len].name === item.name) {
+          this.priorities[len] = item;
+          found = true;
+        };
+      }
+
+      // add to array
+      if (!found) {
+        this.priorities.push(item);
+      }
+
+      this.storePriorities();
+    },
+    newPriority: function () {
+      this.priorities.push({});
+    },
+    removePriority: function (name) {
+      // this will remove all 'planets' etc.
+      var reducedList = this.priorities.filter(p => p.name !== name);
+      this.priorities = reducedList;
+
+      this.storePriorities();
+    },
+    storePriorities: function () {
+      if (window.localStorage) {
+        var priorityPlanning = this.priorities.filter(p => p.name !== null);
+        window.localStorage.setItem(storageKey, JSON.stringify(priorityPlanning));
+      }
+    }
+  },
+  filters: {
+    formatNumber: formatter.formatNumber
   }
 };
 </script>
