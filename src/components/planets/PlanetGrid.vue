@@ -53,13 +53,13 @@ export default {
       return this.planet.tiers.length;
     },
     tabularData () {
-      var tableData = {};
+      let tableData = {};
 
       Object.keys(this.planet).forEach(function (key) {
         if (this.ignoreKeys.includes(key)) {
           // skip
         } else {
-          var value = this.planet[key];
+          let value = this.planet[key];
 
           // ensure value is always an array
           if (typeof (value) !== 'object') value = [value];

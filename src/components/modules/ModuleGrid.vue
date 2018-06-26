@@ -55,13 +55,13 @@ export default {
       return this.mod.levels.length;
     },
     tabularData () {
-      var tableData = {};
+      let tableData = {};
 
       Object.keys(this.mod).forEach(function (key) {
         if (this.ignoreKeys.includes(key)) {
           // skip
         } else {
-          var value = this.mod[key];
+          let value = this.mod[key];
 
           // these are in seconds
           if (this.timeKeys.includes(key)) {

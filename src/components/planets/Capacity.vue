@@ -72,10 +72,10 @@ export default {
   },
   computed: {
     sumCredits () {
-      var len = this.tabularData.length;
-      var sum = 0;
-      for (var i = 0; i < len; i++) {
-        sum += this.tabularData[i].creditStorage;
+      let len = this.tabularData.length;
+      let sum = 0;
+      while (len--) {
+        sum += this.tabularData[len].creditStorage;
       }
       return sum;
     }
@@ -97,13 +97,13 @@ export default {
       return 40;
     },
     meanCalc: function (n, remaining) {
-      var planetCredits = this.planets.creditStorage;
-      var planetLevels = this.planets.levels;
+      const planetCredits = this.planets.creditStorage;
+      const planetLevels = this.planets.levels;
 
       // find mean
-      var mean = remaining / n;
+      const mean = remaining / n;
       // find index, credits, level
-      var index = planetCredits.findIndex(p => {
+      let index = planetCredits.findIndex(p => {
         return (p >= mean);
       });
       // check out of range
@@ -118,13 +118,13 @@ export default {
       }
       // TODO: 5th planet should be lvl 20 max
 
-      var credits = planetCredits[index];
-      var level = planetLevels[index];
+      const credits = planetCredits[index];
+      const level = planetLevels[index];
 
       // half n, round up (y)
-      var y = Math.ceil(n / 2);
+      const y = Math.ceil(n / 2);
       // total credits * y
-      var total = credits * y;
+      const total = credits * y;
       // push to data
       for (var i = 0; i < y; i++) {
         this.tabularData.push({
@@ -133,14 +133,14 @@ export default {
         });
       }
       // what's left?
-      var remainder = remaining - total;
+      const remainder = remaining - total;
       if (remainder < 0) return;
 
       // loop remainder
       if (y > 1) {
         this.meanCalc(n - y, remainder);
       } else {
-        var lastIndex = planetCredits.findIndex(p => {
+        const lastIndex = planetCredits.findIndex(p => {
           return (p >= remainder);
         });
 
@@ -154,9 +154,9 @@ export default {
       return Array(end - start + 1).fill().map((_, idx) => start + idx);
     },
     updateRow: function (i, level) {
-      var planetCredits = this.planets.creditStorage;
+      const planetCredits = this.planets.creditStorage;
 
-      var credits = planetCredits[level - 1];
+      const credits = planetCredits[level - 1];
       if (credits) {
         this.tabularData[i].creditStorage = credits;
       }

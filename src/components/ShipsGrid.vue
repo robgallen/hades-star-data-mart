@@ -53,13 +53,13 @@ export default {
       return this.ship.levels.length;
     },
     tabularData () {
-      var tableData = {};
+      let tableData = {};
 
       Object.keys(this.ship).forEach(function (key) {
         if (this.ignoreKeys.includes(key)) {
           // skip
         } else {
-          var value = this.ship[key];
+          let value = this.ship[key];
 
           // ensure value is always an array
           if (typeof (value) !== 'object') value = [value];
